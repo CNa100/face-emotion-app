@@ -2,19 +2,17 @@ from fastapi import FastAPI, File, UploadFile, Request
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from ultralytics import YOLO
-import shutil, os, requests
+import shutil, os
 
-# مسیر مدل و لینک دانلود Drive (لینک تو)
+# مسیر مدل و شناسه Google Drive
 MODEL_PATH = "model.pt"
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1EpxYIq6HgMkuuu5ac0CNQQ4-2YUb-d2A"
+MODEL_ID = "1EpxYIq6HgMkuuu5ac0CNQQ4-2YUb-d2A"
 
-# دانلود مدل اگر وجود نداشت
+# دانلود مدل با gdown اگر وجود نداشت
 if not os.path.exists(MODEL_PATH):
-    print("در حال دانلود مدل YOLO...")
-    r = requests.get(MODEL_URL)
-    with open(MODEL_PATH, "wb") as f:
-        f.write(r.content)
-    print("مدل با موفقیت ذخیره شد ✅")
+    print("در حال دانلود مدل YOLO با gdown...")
+    os.system(f"gdown --id {MODEL_ID} -O {MODEL_PATH}")
+    print("مدل دانلود و ذخیره شد ✅")
 
 # لیست کلاس‌ها
 CLASSES = [
