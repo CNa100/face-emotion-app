@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>تشخیص حالت چهره</title>
+</head>
+<body style="direction: rtl; font-family: sans-serif; text-align: center;">
+    <h2>آپلود عکس برای تشخیص حالت چهره</h2>
+    <form action="/upload/" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">ارسال</button>
+    </form>
+
+    {% if result_image %}
+        <h3>نتیجه:</h3>
+        <img src="{{ result_image }}" width="400">
+        <h3>حالت‌های شناسایی‌شده:</h3>
+        <ul>
+            {% for label in labels %}
+                <li>{{ label }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
